@@ -3,6 +3,8 @@ import random
 import Rank
 import Data
 import NeuralNetwork
+import LogisticRegression
+import SVM
 
 class Player(object):
 
@@ -126,8 +128,16 @@ class Player(object):
 
 	def makeBet(self, pot, minbet, hand, player2, betIn=None):
 		inputs = self.getInputs(hand, player2, minbet, pot)
-		outputs = NeuralNetwork.NeuralNetwork(self.w, inputs).fire()
-		maxInd = outputs.index(max(outputs))
+		maxInd = 0
+		if "LR" in self.getName():
+			maxInd = LogisticRegression.LogisticRegression(self.w).fire([inputs])[0]
+		elif "SVM" in self.getName():
+			maxInd = SVM.SVM(self.w).fire([inputs])[0]
+		elif "NN" in self.getName():
+			outputs = NeuralNetwork.NeuralNetwork(self.w, inputs).fire()
+			maxInd = outputs.index(max(outputs))
+		else:
+			raise "Not a valid player"
 		if maxInd == 0:
 			bet = 0
 		else:

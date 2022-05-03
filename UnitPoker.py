@@ -120,7 +120,7 @@ class UnitPoker(object):
                # share += self.dealCards(deck, round)
                dealCards = True
                round += 1
-               # print("Round => " + str(round))
+               print("Round => " + str(round))
                minbet = 0
            elif fcr == 1 and callable and round == 3:
                cont = False
@@ -190,8 +190,8 @@ class UnitPoker(object):
        return(nextUnit[1], nextUnit[2])
 
     def playGame(self, w1, w2):
-       p1 = Player.Player(2000, "p1", w1)
-       p2 = Player.Player(2000, "p2", w2)
+       p1 = Player.Player(2000, "p1_SVM", w1)
+       p2 = Player.Player(2000, "p2_SVM", w2)
        for i in range(100):
            out = self.playHand(p1, p2, i%2==0)
            p1 = out[0]

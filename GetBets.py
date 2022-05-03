@@ -11,7 +11,7 @@ class GetBets(object):
 		bet = player.makeBet(pot, betToCall, hand, p2)
 		player.setLastBets(round, bet, pot)
 
-		if bet < betToCall and not (bet == 0 and player.getBankroll() == 0):
+		if bet < betToCall and not (player.getBankroll() == 0):
 			#folds
 			if prnt:
 				print(str(player) + " - Folds")
@@ -24,7 +24,7 @@ class GetBets(object):
 				print(str(player) + " - Raise " + str(bet))
 			player.modifyFCR(round, 2)
 			return (bet, 2)
-		elif bet == betToCall or (bet == 0 and player.getBankroll() == 0):
+		elif bet == betToCall or (bet < betToCall and player.getBankroll() == 0):
 			#call
 			if prnt:
 				print(str(player) + " - Call")
